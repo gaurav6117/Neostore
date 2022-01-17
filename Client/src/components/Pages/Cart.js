@@ -73,7 +73,6 @@ export default function Cart() {
             navigate('/checkout')
         }
     }
-    console.log(Products);
     return (
         <div style={{ padding: "20px" }} className="row m-auto">
             <div className="col-md-9 col-sm-12 m-auto">

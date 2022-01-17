@@ -6,7 +6,7 @@ export default function AddColor() {
     const addColorFunc = (e) => {
         e.preventDefault();
         const data = { color_name: Nameref.current.value, color_code: coderef.current.value }
-        addColor(data).then(res => console.log(res.data))
+        addColor(data)
     }
     return (
         <div className="container">

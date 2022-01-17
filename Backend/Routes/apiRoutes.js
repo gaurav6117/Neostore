@@ -17,7 +17,6 @@ function authenticateToken(req, res, next) {
                 res.json({ "err": 1, "msg": "Token incorrect" })
             }
             else {
-                console.log("Match")
                 next();
             }
         })
@@ -40,7 +39,6 @@ router.post('/fetchcart',authenticateToken,(req, res) => {
 router.post('/setcart',authenticateToken, (req, res) => {
     cartModel.updateOne({ user_email: req.body.email }, { $set: { cart_value: req.body.cartData } }, (err, data) => {
         if (err) {
-            console.log(err);
             res.send(err)
         }
         else {

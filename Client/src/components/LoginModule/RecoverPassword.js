@@ -47,9 +47,6 @@ export default function RecoverPassword() {
                     }
                 });
         }
-        // else {
-
-        // }
     }
     return (
         <div className="limiter">

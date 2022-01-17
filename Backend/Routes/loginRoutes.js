@@ -25,7 +25,7 @@ router.post("/getUser", (req, res) => {
                     "status_code": 200,
                     "message": "You have logged In",
                     "customer_details": data,
-                    "token": jwt.sign(payload, jwtSecret, { expiresIn: 300000 })
+                    "token": jwt.sign(payload, jwtSecret, { expiresIn: 10800000 })
                 })
             }
             else{
@@ -104,7 +104,6 @@ router.post("/forgotPassword", (req, res) => {
                         return console.log(err)
                     }
                     else {
-                        console.log("success");
                         res.json({ success: true })
                     }
                 });
@@ -120,11 +119,9 @@ router.post("/forgotPassword", (req, res) => {
 })
 router.post("/recoverPassword", (req, res) => {
     if (otp == req.body.otp) {
-        console.log(`otp matched: ${req.body.otp}`);
         const saltRounds = 10;
         const myPlaintextPassword = req.body.password;
         const hash = bcrypt.hashSync(myPlaintextPassword, saltRounds)
-        console.log(hash + req.body.email );
         loginModel.updateOne({ email: req.body.email }, { $set: { password: hash } },(err,data)=>{
             if (err){
                 console.log(err);
@@ -147,11 +144,9 @@ router.post("/recoverPassword", (req, res) => {
     }
 })
 router.post("/changePassword", (req, res) => {
-    console.log(req.body);
     const saltRounds = 10;
     const myPlaintextPassword = req.body.newpass;
     const hash = bcrypt.hashSync(myPlaintextPassword, saltRounds)
-    console.log(hash);
     loginModel.updateOne({ email: req.body.email }, { $set: { password: hash } },(err,data)=>{
         if(data){
             res.json({

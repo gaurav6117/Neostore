@@ -56,7 +56,6 @@ export default function Checkout() {
             const final_data = cartProducts
             final_data['_address'] = selected_address
             final_data['token'] = localStorage.getItem('token')
-            console.log(final_data); 
             addOrder(final_data).then(res => {
                 if (res.data.success) {
                     localStorage.setItem("myCart",JSON.stringify({}))

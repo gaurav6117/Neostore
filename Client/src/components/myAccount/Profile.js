@@ -10,7 +10,6 @@ export default function Profile() {
             setuid(decode.uid)
         }
     }, [])
-    console.log(uid);
     return (
         <div>
             <h3>Profile</h3>

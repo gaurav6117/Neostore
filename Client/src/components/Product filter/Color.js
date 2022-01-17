@@ -55,8 +55,6 @@ export default function Color() {
         });
         setrerender(!rerender)
     }
-    console.log(Products);
-    console.log();
     return (
         <>
             <p style={{ color: "black", fontSize: "20px", textAlign: "end" }}>Sort By:<button onClick={sortByRating} className="sortIcon"><i className="fa fa-star sortIconin"></i></button><button onClick={sortByPriceUp} className="sortIcon">₹<i className="fa fa-arrow-up sortIconin"></i></button><button  onClick={sortByPriceDown} className="sortIcon">₹<i className="fa fa-arrow-down sortIconin"></i></button></p>

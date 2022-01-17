@@ -53,12 +53,10 @@ export default class Register extends Component {
         e.preventDefault();
         if (this.validate(this.state.errors)) {
             const data = { first_name: this.state.first_name, last_name: this.state.last_name, mobile: this.state.mobile, email: this.state.email, password: this.state.password, date_of_birth: this.state.dob, gender: this.state.gender, profile_image: this.state.image }
-            // console.log(data);
             addUser(data)
                 .then(res => {
                     if (res.data.success) {
                         window.location.href = "/login"
-                        // add success message in page
                     }
                 })
         }

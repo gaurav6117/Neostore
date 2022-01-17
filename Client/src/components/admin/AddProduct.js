@@ -34,8 +34,7 @@ export default function AddProduct() {
         formData.append('product_stock',product_stockref.current.value)
         formData.append('color_id',color_idref.current.value)
         formData.append('category_id',category_idref.current.value)
-        addProduct(formData).then(res => console.log(res.data))
-        // console.log(typeof image);
+        addProduct(formData)
     } 
     return (
         <div className="container">
@@ -57,18 +56,3 @@ export default function AddProduct() {
         </div>
     )
 }
-// const data = {
-        //     product_name: product_nameref.current.value,
-        //     product_image: product_imageref.current.value,
-        //     product_desc: product_descref.current.value,
-        //     product_rating: product_ratingref.current.value,
-        //     product_producer: product_producerref.current.value,
-        //     product_cost: product_costref.current.value,
-        //     product_dimension: product_dimensionref.current.value,
-        //     product_material: product_materialref.current.value,
-        //     product_stock: product_stockref.current.value,
-        //     color_id: color_idref.current.value,
-        //     category_id: category_idref.current.value
-        // }
-        // console.log(data);
-        
