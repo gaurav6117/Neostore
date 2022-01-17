@@ -8,6 +8,7 @@ export default function Home() {
     let navigate = useNavigate();
     const [toast, settoast] = useState({ class: 'toast', message: '' })
     const Products = useSelector(state => state.Products)
+    console.log(Products);
     useEffect(() => {
         getproduct().then(res => dispatch({ type: 'AddProduct', payload: res.data }))
         if (localStorage.getItem("token") != undefined) {
@@ -46,14 +47,14 @@ export default function Home() {
                 let token = localStorage.getItem("token")
                 let decode = jwt_decode(token);
                 let temp = localStorage.getItem("myCart")
-                setCart({ cartData: temp, email: decode.uid.email, token: localStorage.getItem('token')  })
+                setCart({ cartData: temp, email: decode.uid.email, token: localStorage.getItem('token') })
             }
-            fetchAddress({ email: decode.uid.email, token: localStorage.getItem('token')  }).then(res => {
+            fetchAddress({ email: decode.uid.email, token: localStorage.getItem('token') }).then(res => {
                 if (res.data) {
                     dispatch({ type: "ADDRESS", payload: JSON.parse(res.data.address) })
                 }
             })
-            fetchOrder({ email: decode.uid.email, token: localStorage.getItem('token')  }).then(res => {
+            fetchOrder({ email: decode.uid.email, token: localStorage.getItem('token') }).then(res => {
                 if (res.data) {
                     dispatch({ type: "ORDER", payload: res.data })
                 }

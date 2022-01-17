@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import jwt_decode from 'jwt-decode'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
@@ -7,6 +7,7 @@ export default function Navbar() {
     let navigate = useNavigate()
     const isLoggedIn = useSelector(state => state.isLoggedIn)
     const cartCount = useSelector(state => state.cartCount)
+    const Products = useSelector(state => state.Products)
     const dispatch = useDispatch()
     const logoutFunc = () => {
         dispatch({ type: "ISLOGGEDOUT" })
@@ -16,11 +17,12 @@ export default function Navbar() {
                 let decode = jwt_decode(token);
                 let temp = localStorage.getItem("myCart")
                 setCart({ cartData: temp, email: decode.uid.email })
+                localStorage.removeItem("token");
             }
         }
         navigate("/")
     }
-    return (
+        return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container-fluid">
@@ -45,18 +47,17 @@ export default function Navbar() {
                             </li>
                         </ul>
                         <form className="d-flex">
-                            <i style={{ fontSize: "20px", position: "absolute" }} className="fa fa-search icon" aria-hidden="true"></i>
-                            <input className="form-control me-2" type="search" placeholder="    Search" aria-label="Search" />
+                            <Link to="/search" style={{fontSize: "19px", width:"200px" ,marginRight:"10px", textAlign:"left"}} className="btn btn-light"><i style={{ display: "inline",fontSize: "24px",padding:"5px 8px 5px 0px",marginRight:"0px"}} className="fa fa-search icon" ></i>Search</Link>
                             <Link to="/cart" className="btn btn-light"><i style={{ display: "inline", fontSize: "24px", paddingRight: "5px" }} className="fa">&#xf07a;</i>Cart<span className='cartValue'>{cartCount}</span></Link>
                             <div style={{ marginLeft: "10px" }} className="dropdown">
                                 <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i style={{ fontSize: "29px" }} className="fa fa-user-circle-o"></i>
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    {isLoggedIn?
-                                    <li><Link className="dropdown-item" to="/myAccount">Account</Link></li>
-                                    :
-                                    <li><Link className="dropdown-item" to="/login">Account</Link></li>
+                                    {isLoggedIn ?
+                                        <li><Link className="dropdown-item" to="/myAccount">Account</Link></li>
+                                        :
+                                        <li><Link className="dropdown-item" to="/login">Account</Link></li>
                                     }
                                     <li>{isLoggedIn ? <button className="dropdown-item" onClick={logoutFunc}>Logout</button> : <Link className="dropdown-item" to="/login">Login</Link>}</li>
                                 </ul>

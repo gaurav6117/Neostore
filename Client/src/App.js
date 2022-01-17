@@ -4,6 +4,7 @@ import Navbar from "./components/Body/Navbar"
 import Footer from './components/Body/Footer'
 import Home from './components/Pages/Home';
 import EditProfile from './components/myAccount/EditProfile';
+import Search from './components/Body/Search';
 const ProductPage = React.lazy(() => import('./components/Pages/ProductPage'))
 const Order = React.lazy(() => import("./components/Pages/Order"))
 const MyAccount = React.lazy(() => import('./components/Pages/MyAccount'))
@@ -47,7 +48,7 @@ export default function App() {
             <Route path="/myAccount/" element={<Profile />} />
             <Route path="/myAccount/changePAssword" element={<ChangePAssword />} />
             <Route path="/myAccount/address" element={<Address />} />
-            <Route path="/myAccount/editprofile" element={<EditProfile/>}/>
+            <Route path="/myAccount/editprofile" element={<EditProfile />} />
           </Route>
           <Route path="/order" element={<Order />} />
           <Route path="/productDetail/:id" element={<ProductDetail />} />
@@ -57,7 +58,8 @@ export default function App() {
             <Route path="/productpage/color/:cname" element={<Color />} />
           </Route>
           <Route path="/cart" element={<Cart />} />
-          <Route path="termsandconditions" element={<TermsAndConditions />} />
+          <Route path="/termsandconditions" element={<TermsAndConditions />} />
+          <Route path="/search" element={<Search/>}/>
         </Routes>
       </Suspense>
       <Footer />
