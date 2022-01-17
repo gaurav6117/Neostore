@@ -9,7 +9,7 @@ export default function Order() {
         if (localStorage.getItem("token")) {
             let token = localStorage.getItem("token")
             var decode = jwt_decode(token);
-            fetchOrder({ email: decode.uid.email }).then(res => {
+            fetchOrder({ email: decode.uid.email, token:localStorage.getItem('token') }).then(res => {
                 if (res.data) {
                     dispatch({ type: "ORDER", payload: res.data })
                 }

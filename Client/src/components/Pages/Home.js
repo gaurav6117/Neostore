@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getproduct, fetchCart, setCart, fetchAddress, fetchOrder } from '../../config/Myservices';
 import { useNavigate } from 'react-router-dom';
@@ -6,15 +6,15 @@ import jwt_decode from 'jwt-decode'
 export default function Home() {
     const dispatch = useDispatch();
     let navigate = useNavigate();
-    const [toast, settoast] = useState({class:'toast', message:''})
+    const [toast, settoast] = useState({ class: 'toast', message: '' })
     const Products = useSelector(state => state.Products)
     useEffect(() => {
         getproduct().then(res => dispatch({ type: 'AddProduct', payload: res.data }))
         if (localStorage.getItem("token") != undefined) {
             let token = localStorage.getItem("token")
             var decode = jwt_decode(token);
-            dispatch({type:"SETUID", payload:decode.uid})
-            fetchCart({ email: decode.uid.email }).then(res => {
+            dispatch({ type: "SETUID", payload: decode.uid })
+            fetchCart({ email: decode.uid.email, token: localStorage.getItem('token') }).then(res => {
                 let temp = JSON.parse(res.data.cart_value);
                 if (localStorage.getItem("myCart") != undefined) {
                     let arr = JSON.parse(localStorage.getItem("myCart"));
@@ -46,24 +46,24 @@ export default function Home() {
                 let token = localStorage.getItem("token")
                 let decode = jwt_decode(token);
                 let temp = localStorage.getItem("myCart")
-                setCart({ cartData: temp, email: decode.uid.email })
+                setCart({ cartData: temp, email: decode.uid.email, token: localStorage.getItem('token')  })
             }
-            fetchAddress({ email: decode.uid.email }).then(res=> {
-                if(res.data){
-                    dispatch({type:"ADDRESS", payload:JSON.parse(res.data.address)})
+            fetchAddress({ email: decode.uid.email, token: localStorage.getItem('token')  }).then(res => {
+                if (res.data) {
+                    dispatch({ type: "ADDRESS", payload: JSON.parse(res.data.address) })
                 }
             })
-            fetchOrder({email: decode.uid.email}).then(res=>{
-                if(res.data){
-                    dispatch({type:"ORDER", payload:res.data})
+            fetchOrder({ email: decode.uid.email, token: localStorage.getItem('token')  }).then(res => {
+                if (res.data) {
+                    dispatch({ type: "ORDER", payload: res.data })
                 }
             })
         }
     }, [])
-    const callToastFunc=(message)=>{
-        settoast({...toast, class:'myclass',message:message})
+    const callToastFunc = (message) => {
+        settoast({ ...toast, class: 'myclass', message: message })
         setTimeout(() => {
-            settoast({...toast, class:'toast'})
+            settoast({ ...toast, class: 'toast' })
         }, 2000);
     }
     const productDetailFunc = (id) => {
@@ -121,7 +121,7 @@ export default function Home() {
             </div>
             <h2 className="text-center mt-4 ">Popular Products</h2>
             <div className="row my-4 container m-auto">
-                {Products.slice(0,6).map(elem =>
+                {Products.slice(0, 6).map(elem =>
                     <div key={elem._id} className="col-lg-4 productCard">
                         <div className="productCardInner" style={{ width: "19rem" }}>
                             <img src={elem.product_image[0].base64} onClick={() => productDetailFunc(elem._id)} className="card-img-top m-auto" height="180px" width="100px" alt="no image" />
@@ -139,18 +139,18 @@ export default function Home() {
                     </div>
                 )}
             </div>
-            <div className="position-fixed top-0 end-0 p-3" style={{zIndex: "11"}}>
-                    <div id="liveToast" className={toast.class} role="alert" aria-live="assertive" aria-atomic="true">
-                        <div style={{backgroundColor:"#cff4fc", color:"black"}} className="toast-header">
-                            {/* <img src="..." className="rounded me-2" alt="..."> */}
-                            <strong class ="me-auto">Message</strong>
-                            <button type ="button" class ="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                        <div style={{backgroundColor:"#cff4fc", color:'black'}} className="toast-body">
-                            {toast.message}
-                        </div>
+            <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: "11" }}>
+                <div id="liveToast" className={toast.class} role="alert" aria-live="assertive" aria-atomic="true">
+                    <div style={{ backgroundColor: "#cff4fc", color: "black" }} className="toast-header">
+                        {/* <img src="..." className="rounded me-2" alt="..."> */}
+                        <strong class="me-auto">Message</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div style={{ backgroundColor: "#cff4fc", color: 'black' }} className="toast-body">
+                        {toast.message}
                     </div>
                 </div>
+            </div>
             <br /><br />
         </>
     )

@@ -7,13 +7,10 @@ const placedorderModel = require("../Db/placedorderSchema")
 const jwt = require("jsonwebtoken");
 const jwtSecret = "asdasd324234#@$dgdfg";
 function authenticateToken(req, res, next) { 
-    const authHeader = req.headers.authorization;
-    console.log(authHeader);
-    const token = authHeader && authHeader.split(' ')[1];
-    console.log(token)
+    let token = req.body.token
     if (token == null) {
         res.json({ "err": 1, "msg": "Token not match" })
-    }  
+    }   
     else {
         jwt.verify(token, jwtSecret, (err, data) => {
             if (err) {
@@ -32,7 +29,7 @@ router.get("/", (req, res) => {
     })
 })
 // --------------------------------------add to cart login----------------------
-router.post('/fetchcart',(req, res) => {
+router.post('/fetchcart',authenticateToken,(req, res) => {
     cartModel.findOne({ user_email: req.body.email }, (err, data) => {
         if (err) throw err;
         if (data) {
@@ -40,7 +37,7 @@ router.post('/fetchcart',(req, res) => {
         }
     })
 })
-router.post('/setcart', (req, res) => {
+router.post('/setcart',authenticateToken, (req, res) => {
     cartModel.updateOne({ user_email: req.body.email }, { $set: { cart_value: req.body.cartData } }, (err, data) => {
         if (err) {
             console.log(err);
@@ -53,7 +50,7 @@ router.post('/setcart', (req, res) => {
 })
 
 // --------------------------------------orders----------------------
-router.post('/fetchplacedorder', (req, res) => {
+router.post('/fetchplacedorder',authenticateToken, (req, res) => {
     placedorderModel.find({ user_email: req.body.email }, (err, data) => {
         if (err) throw err;
         if (data) {
@@ -61,7 +58,7 @@ router.post('/fetchplacedorder', (req, res) => {
         }
     })
 }) 
-router.post("/addplacedorder", (req,res)=>{
+router.post("/addplacedorder",authenticateToken, (req,res)=>{
     new placedorderModel({email:req.body.email, amount:req.body.amount, address:req.body._address ,products: JSON.parse(req.body.productData)}).save((err,data)=>{
         if(data){
             res.json({success:true, odata:data})
@@ -72,7 +69,7 @@ router.post("/addplacedorder", (req,res)=>{
     })
 })
 // -----------------------------------------Address Routes ----------------------
-router.post('/fetchaddress', (req, res) => {
+router.post('/fetchaddress',authenticateToken, (req, res) => {
     addressModel.findOne({ user_email: req.body.email }, (err, data) => {
         if (err) throw err;
         if (data) {
@@ -80,7 +77,7 @@ router.post('/fetchaddress', (req, res) => {
         }
     })
 })
-router.post('/setaddress', (req, res) => {
+router.post('/setaddress',authenticateToken, (req, res) => {
     addressModel.updateOne({ user_email: req.body.email }, { $set: { address: req.body.addressArr } }, (err, data) => {
         if (err) throw err;
         else {

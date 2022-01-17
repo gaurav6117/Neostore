@@ -14,7 +14,7 @@ export default function Invoice() {
         if (localStorage.getItem('token')) {
             let token = localStorage.getItem('token')
             let decode = jwt_decode(token)
-            fetchOrder({ email: decode.uid.email }).then(res => {
+            fetchOrder({ email: decode.uid.email, token:localStorage.getItem('token') }).then(res => {
                 if (res.data) {
                     res.data.map(elem => {
                         if (elem._id == params.id) {

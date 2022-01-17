@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, Link } from 'react-router-dom';
-import { getColor, getCatgories, getCategories } from '../../config/Myservices';
+import { getColor, getCategories } from '../../config/Myservices';
 export default function ProductPage() {
     useEffect(() => {
         getColor().then(res => {

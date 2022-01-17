@@ -52,7 +52,7 @@ export default function ProductDetail() {
                     <h4>Share<i style={{ fontSize: "24px", margin: "6px" }} className="fa fa-share-alt"></i></h4>
                     <div>
                         <FacebookShareButton
-                            url={"http://www.Neostore.com"}
+                            url={`http://www.Neostore.com/productDetail/${param.id}`}
                             quote={"NeoStore - A one stop solution for styling"}
                             hashtag="#NeoStore"
                             className="socialMediaButton"
@@ -60,7 +60,7 @@ export default function ProductDetail() {
                             <FacebookIcon size={46} round={true} />
                         </FacebookShareButton>
                         <WhatsappShareButton
-                            url={"http://www.Neostore.com"}
+                            url={`http://www.Neostore.com/productDetail/${param.id}`}
                             quote={"NeoStore - A one stop solution for styling"}
                             hashtag="#NeoStore"
                             className="socialMediaButton"
@@ -68,7 +68,7 @@ export default function ProductDetail() {
                             <WhatsappIcon size={46} round={true} />
                         </WhatsappShareButton>
                         <TelegramShareButton
-                            url={"http://www.Neostore.com"}
+                            url={`http://www.Neostore.com/productDetail/${param.id}`}
                             quote={"NeoStore - A one stop solution for styling"}
                             hashtag="#NeoStore"
                             className="socialMediaButton"
@@ -76,7 +76,7 @@ export default function ProductDetail() {
                             <TelegramIcon size={46} round={true} />
                         </TelegramShareButton>
                         <PinterestShareButton
-                            url={"http://www.Neostore.com"}
+                            url={`http://www.Neostore.com/productDetail/${param.id}`}
                             quote={"NeoStore - A one stop solution for styling"}
                             hashtag="#NeoStore"
                             className="socialMediaButton"
@@ -84,7 +84,7 @@ export default function ProductDetail() {
                             <PinterestIcon size={46} round={true} />
                         </PinterestShareButton>
                         <EmailShareButton
-                            url={"http://www.Neostore.com"}
+                            url={`http://www.Neostore.com/productDetail/${param.id}`}
                             quote={"NeoStore - A one stop solution for styling"}
                             hashtag="#NeoStore"
                             className="socialMediaButton"
@@ -93,7 +93,7 @@ export default function ProductDetail() {
                         </EmailShareButton>
                     </div>
                     <div>
-                        <button onClick={()=>addToCart(data[0]._id)} className="btn btn-info productPageBtn">ADD TO CART</button>
+                        <button onClick={() => addToCart(data[0]._id)} className="btn btn-info productPageBtn">ADD TO CART</button>
                         <button className="btn btn-warning productPageBtn">RATE PRODUCT</button>
                     </div>
                 </div>

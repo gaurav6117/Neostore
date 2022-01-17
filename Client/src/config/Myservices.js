@@ -35,7 +35,8 @@ export function getCategories(){
     return axios.get(`${MAIN_URL}/admin/getcategories`);
 }
 export function getColor(){
-    return axios.get(`${MAIN_URL}/admin/getcolor`);
+    console.log(token);
+    return axios.get(`${MAIN_URL}/admin/getcolor`)
 }
 // Web Functions
 export function getproduct(){
